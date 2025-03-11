@@ -51,8 +51,10 @@ app.post("/login", async (req, res) => {
     message: "Login successful",
     token,
     username: user.username,
-    money: user.money
+    email: user.email,
+    money: user.money,
   });
+  
 });
 
 app.get("/money", async (req, res) => {
@@ -83,7 +85,6 @@ app.put("/update-money", async (req, res) => {
     console.log("backend ")
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    // Update the balance in MongoDB
     await User.updateOne({ username }, { $set: { money: balance } });
 
     res.json({ message: "Money updated successfully", balance });
